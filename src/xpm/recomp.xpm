@@ -1,0 +1,33 @@
+/* XPM */
+
+static const char *
+recomp_data[] = {
+  /* width height num_colors chars_per_pixel x_hot y_hot */
+  "16 16 6 1 0 0",
+
+  /* colors */
+  ". s symbol1 c #000000 m black",
+  "# s symbol2 c #ffffff m white",
+  "a s symbol3 c #40ff40 m black",
+  "b s symbol4 c #40aa40 m black",
+  "c s symbol5 c #404040 m black",
+  "  s mask c none",
+
+  /* pixels */
+  "                ",
+  "          #     ",
+  "          aa    ",
+  "          aba   ",
+  "     aaaaaabba  ",
+  "   #abbbbbbbbba ",
+  "  abbbbbbbbbbbbc",
+  "  abbbbbbbbbbbc ",
+  " #bbbbbc...bbc  ",
+  " abbbbc   .bc   ",
+  " abbbc    .c    ",
+  " abbbc    c     ",
+  " abbb.          ",
+  " abbb.          ",
+  " accc.          ",
+  "                ",
+};

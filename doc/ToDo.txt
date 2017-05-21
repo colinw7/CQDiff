@@ -1,0 +1,8 @@
+. Custom ScrollBar draw for differences
+. Check scrollbar range
+. Numbers On/Off
+. X increment min size for char size resizing
+. preferences diff cmd, white space ...
+. merge
+. lock horizontal/vertical scrollbars options
+. file headers
