@@ -15,7 +15,7 @@ CXX           = g++
 DEFINES       = -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
 CXXFLAGS      = -m64 -pipe -std=c++11 -g -Wall -W -D_REENTRANT -fPIC $(DEFINES)
-INCPATH       = -I. -I. -I../include -I. -I../../CQUtil/include -I../../CCommand/include -I../../CFile/include -I../../CStrUtil/include -I../../CUtil/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I. -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
+INCPATH       = -I. -I. -I../include -I. -I../../CQUtil/include -I../../CCommand/include -I../../CFile/include -I../../CStrUtil/include -I../../CUtil/include -isystem /usr/include/x86_64-linux-gnu/qt5 -isystem /usr/include/x86_64-linux-gnu/qt5/QtWidgets -isystem /usr/include/x86_64-linux-gnu/qt5/QtGui -isystem /usr/include/x86_64-linux-gnu/qt5/QtCore -I.moc -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64
 QMAKE         = /usr/bin/qmake
 DEL_FILE      = rm -f
 CHK_DIR_EXISTS= test -d
@@ -49,7 +49,7 @@ OBJECTS_DIR   = ../obj/
 ####### Files
 
 SOURCES       = main.cpp \
-		CQDiff.cpp moc_CQDiff.cpp
+		CQDiff.cpp .moc/moc_CQDiff.cpp
 OBJECTS       = ../obj/main.o \
 		../obj/CQDiff.o \
 		../obj/moc_CQDiff.o
@@ -325,13 +325,13 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: moc_CQDiff.cpp
+compiler_moc_header_make_all: .moc/moc_CQDiff.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_CQDiff.cpp
-moc_CQDiff.cpp: ../../CUtil/include/CSideType.h \
+	-$(DEL_FILE) .moc/moc_CQDiff.cpp
+.moc/moc_CQDiff.cpp: ../../CUtil/include/CSideType.h \
 		../../CQUtil/include/CQMainWindow.h \
 		CQDiff.h
-	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/colinw/git/CQDiff/src -I/home/colinw/git/CQDiff/src -I/home/colinw/git/CQDiff/include -I/home/colinw/git/CQDiff/src -I/home/colinw/git/CQUtil/include -I/home/colinw/git/CCommand/include -I/home/colinw/git/CFile/include -I/home/colinw/git/CStrUtil/include -I/home/colinw/git/CUtil/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include CQDiff.h -o moc_CQDiff.cpp
+	/usr/lib/x86_64-linux-gnu/qt5/bin/moc $(DEFINES) -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I/home/colinw/git/CQDiff/src -I/home/colinw/git/CQDiff/src -I/home/colinw/git/CQDiff/include -I/home/colinw/git/CQDiff/src -I/home/colinw/git/CQUtil/include -I/home/colinw/git/CCommand/include -I/home/colinw/git/CFile/include -I/home/colinw/git/CStrUtil/include -I/home/colinw/git/CUtil/include -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/5 -I/usr/include/x86_64-linux-gnu/c++/5 -I/usr/include/c++/5/backward -I/usr/lib/gcc/x86_64-linux-gnu/5/include -I/usr/local/include -I/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed -I/usr/include/x86_64-linux-gnu -I/usr/include CQDiff.h -o .moc/moc_CQDiff.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -373,8 +373,8 @@ compiler_clean: compiler_moc_header_clean
 		svg/reload_svg.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/CQDiff.o CQDiff.cpp
 
-../obj/moc_CQDiff.o: moc_CQDiff.cpp 
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/moc_CQDiff.o moc_CQDiff.cpp
+../obj/moc_CQDiff.o: .moc/moc_CQDiff.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ../obj/moc_CQDiff.o .moc/moc_CQDiff.cpp
 
 ####### Install
 

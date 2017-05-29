@@ -12,6 +12,8 @@ QMAKE_CXXFLAGS += -std=c++11
 
 CONFIG += debug
 
+MOC_DIR = .moc
+
 # Input
 SOURCES += \
 main.cpp \
