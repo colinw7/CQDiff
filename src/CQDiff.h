@@ -1,5 +1,5 @@
-#ifndef CQDIFF_H
-#define CQDIFF_H
+#ifndef CQDiff_H
+#define CQDiff_H
 
 #include <CSideType.h>
 #include <CQMainWindow.h>
