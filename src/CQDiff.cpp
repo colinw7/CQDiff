@@ -13,6 +13,8 @@
 #include <QStatusBar>
 #include <QPainter>
 
+#include <cmath>
+
 #include <svg/first_diff_svg.h>
 #include <svg/last_diff_svg.h>
 #include <svg/next_diff_svg.h>
