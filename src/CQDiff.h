@@ -110,7 +110,7 @@ class CQDiffBar : public QScrollBar {
  public:
   CQDiffBar(CQDiff *diff);
 
-  void paintEvent(QPaintEvent *);
+  void paintEvent(QPaintEvent *) override;
 
  private:
   CQDiff *diff_ { nullptr };
@@ -125,7 +125,7 @@ class CQFileEditCanvas : public QWidget {
   CQFileEditCanvas(CQFileEdit *edit);
 
  private:
-  void paintEvent(QPaintEvent *);
+  void paintEvent(QPaintEvent *) override;
 
  private:
   CQFileEdit *edit_ { nullptr };
@@ -258,11 +258,11 @@ class CQDiff : public CQMainWindow {
 
   bool parseChange(const std::string &line);
 
-  QWidget *createCentralWidget();
+  QWidget *createCentralWidget() override;
 
-  void createMenus();
-  void createToolBars();
-  void createStatusBar();
+  void createMenus() override;
+  void createToolBars() override;
+  void createStatusBar() override;
 
   void scrollToChange(int change);
 
@@ -313,7 +313,7 @@ class CQDiff : public CQMainWindow {
     }
   }
 
-  QSize sizeHint() const;
+  QSize sizeHint() const override;
 
  signals:
   void changeNumChanged();
