@@ -178,7 +178,7 @@ class CQFileEdit : public QWidget {
   void vscrollSlot(int y);
 
  private:
-  typedef std::map<int,Change> ChangeMap;
+  typedef std::map<int, Change> ChangeMap;
 
   CQDiff                   *diff_        { nullptr };
   CSideType                 side_        { CSIDE_TYPE_LEFT };
@@ -274,7 +274,7 @@ class CQDiff : public CQMainWindow {
 
   const ChangeArray &getChanges() const { return changes_; }
 
-  int getNumChanges() const { return changes_.size(); }
+  int getNumChanges() const { return int(changes_.size()); }
 
   int  getChangeNum() const { return changeNum_; }
   void setChangeNum(int changeNum);
@@ -282,13 +282,13 @@ class CQDiff : public CQMainWindow {
   const CQDiffChange &getChange(int i) const {
     assert(i >= 0 && i < int(changes_.size()));
 
-    return changes_[i];
+    return changes_[uint(i)];
   }
 
   CQDiffChange &getChange(int i) {
     assert(i >= 0 && i < int(changes_.size()));
 
-    return changes_[i];
+    return changes_[uint(i)];
   }
 
   bool isIgnoreWhiteSpace() const { return ignoreWhiteSpace_; }

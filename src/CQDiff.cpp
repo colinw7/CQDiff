@@ -103,7 +103,7 @@ exec()
   CStrUtil::addLines(result, lines);
 
   for (const auto &line : lines) {
-    uint len = line.size();
+    auto len = line.size();
 
     if (len == 0 || ! isdigit(line[0]))
       continue;
@@ -153,16 +153,16 @@ parseChange(const std::string &line)
       return false;
   }
 
-  uint num = changes_.size() + 1;
+  auto num = changes_.size() + 1;
 
-  CQDiffChange change(num, c, lstart, lend, rstart, rend);
+  CQDiffChange change(uint(num), char(c), lstart, lend, rstart, rend);
 
   change.setString(line);
 
   changes_.push_back(change);
 
-  ledit_->addChange(num, c         , lstart, lend);
-  redit_->addChange(num, toupper(c), rstart, rend);
+  ledit_->addChange(uint(num), char(c)         , lstart, lend);
+  redit_->addChange(uint(num), char(toupper(c)), rstart, rend);
 
   return true;
 }
@@ -322,7 +322,7 @@ void
 CQDiff::
 lastDiffSlot()
 {
-  setChangeNum(changes_.size() - 1);
+  setChangeNum(int(changes_.size() - 1));
 }
 
 void
@@ -330,7 +330,7 @@ CQDiff::
 nextDiffSlot()
 {
   if (changeNum_ < int(changes_.size() - 1))
-    setChangeNum(changeNum_ + 1);
+    setChangeNum(int(changeNum_ + 1));
 }
 
 void
@@ -583,13 +583,13 @@ draw(QPainter *p)
   int    change_len = 0;
   QColor change_bg;
 
-  int num_lines = lines_.size();
+  auto num_lines = lines_.size();
 
   int         lfw = 0;
   std::string lfmt;
 
   if (isShowNumbers()) {
-    int lw = log10(num_lines) + 1;
+    int lw = int(std::log10(num_lines) + 1);
 
     lfmt = "%" + CStrUtil::toString(lw) + "d";
 
@@ -598,7 +598,7 @@ draw(QPainter *p)
 
   int iw = charWidth_ + 8;
 
-  for (int line_num = 1; line_num <= num_lines; ++line_num, y1 = y2, y2 = y1 + charHeight_) {
+  for (uint line_num = 1; line_num <= num_lines; ++line_num, y1 = y2, y2 = y1 + charHeight_) {
     // check if line if visible
     bool draw = (y2 >= 0 && y1 < height);
 
@@ -627,7 +627,7 @@ draw(QPainter *p)
     // check for new change
     if (! change_c) {
       // find change for line
-      auto pc = changeMap_.find(line_num);
+      auto pc = changeMap_.find(int(line_num));
 
       if (pc != changeMap_.end()) {
         const Change &change = (*pc).second;
@@ -635,7 +635,7 @@ draw(QPainter *p)
         bool selected = (diff_->getChangeNum() == int(change.num - 1));
 
         // get delta change data (both files)
-        CQDiffChange &dchange = diff_->getChange(change.num - 1);
+        auto &dchange = diff_->getChange(int(change.num - 1));
 
         change_c   = dchange.getChar();
         change_end = dchange.getEnd(side_);
@@ -666,7 +666,7 @@ draw(QPainter *p)
     // continuation of change
     else {
       // reset if done
-      if (line_num > change_end) {
+      if (int(line_num) > change_end) {
         change_c   = '\0';
         change_end = 0;
       }
@@ -693,7 +693,7 @@ draw(QPainter *p)
 
     // draw line
     if (draw) {
-      const std::string &line = lines_[line_num - 1];
+      const auto &line = lines_[line_num - 1];
 
       p->drawText(x, y1 + charAscent_, line.c_str());
     }
@@ -751,14 +751,14 @@ updateScrollbars(int height)
 
   charWidth_ = fm.averageCharWidth();
 
-  uint num_lines = lines_.size();
+  auto num_lines = lines_.size();
 
   int width = 0;
 
   for (const auto &line : lines_)
     width = std::max(width, fm.width(line.c_str()));
 
-  int lw = log10(num_lines) + 1;
+  int lw = int(std::log10(num_lines) + 1);
 
   int lfw = lw*charWidth_ + 8;
   int iw  = charWidth_ + 8;
