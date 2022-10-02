@@ -476,7 +476,7 @@ sizeHint() const
 {
   QFontMetrics fm(font());
 
-  int tw = fm.width("X");
+  int tw = fm.horizontalAdvance("X");
   int th = fm.height();
 
   return QSize(160*tw, 70*th);
@@ -756,7 +756,7 @@ updateScrollbars(int height)
   int width = 0;
 
   for (const auto &line : lines_)
-    width = std::max(width, fm.width(line.c_str()));
+    width = std::max(width, fm.horizontalAdvance(line.c_str()));
 
   int lw = int(std::log10(num_lines) + 1);
 
